@@ -1,4 +1,4 @@
-import axios from 'axios';
+import todoApi from '../../api/todoApi';
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 
@@ -12,7 +12,7 @@ const TodosSection = () => {
 
     const getTodods = async () => {
         try {
-            const response = await axios.get('https://6292d1a74e324aacf6dc841a.endapi.io/to_do')
+            const response = await todoApi.get('/to_do')
             if (response.status === 200) {
                 dispatch(setTodos(response.data.data.reverse()));
             }
@@ -36,7 +36,7 @@ const TodosSection = () => {
             <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
                 <div className="bg-white rounded shadow p-6 m-4 ">
                     <div className="mb-4">
-                        <h1 className="text-grey-darkest">Todo List</h1>
+                        <h1 className="text-grey-darkest font-bold ">Todo List</h1>
                         <AddTodos />
                     </div>
                     <div>

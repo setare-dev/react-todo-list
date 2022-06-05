@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: [] // only navigation will be persisted
+    whitelist: ['todos'] // only navigation will be persisted
 
 }
 

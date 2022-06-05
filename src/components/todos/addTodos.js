@@ -1,8 +1,8 @@
-import axios from 'axios';
+import todoApi from '../../api/todoApi';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addTodo } from './../../store/slices/toDoSlice';
-
+import { ToastAlert } from '../../customAlert';
 const AddTodos = () => {
     const dispatch = useDispatch();
     const [inputTodo, setInputTodo] = useState("");
@@ -17,9 +17,10 @@ const AddTodos = () => {
                 done: false
             }
             try {
-                const res = await axios.post('https://6292d1a74e324aacf6dc841a.endapi.io/to_do', newTodo);
+                const res = await todoApi.post('/to_do', newTodo);
                 dispatch(addTodo(res.data.data))
                 setInputTodo('')
+                ToastAlert('Added successfully')
             } catch (error) {
                 console.log(error)
             }
