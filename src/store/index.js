@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import todoRedcer from './slices/toDoSlice'
 
 
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['todos'] // only navigation will be persisted
+    whitelist: ['todos']
 
 }
 
@@ -21,6 +21,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
     reducer: persistedReducer,
+    middleware: getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: ["persist/PERSIST"],
+        },
+    }),
 })
 
 const persistor = persistStore(store)
